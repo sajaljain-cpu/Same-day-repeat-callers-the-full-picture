@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repeat Caller RCA — Full Report · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --ink:#13161a; --paper:#fafaf7; --card:#ffffff; --line:#e3e1d8; --line2:#efeee7;
+  --muted:#6f6f66; --red:#c0392b; --redbg:#fbeae7; --amber:#c07c11; --amberbg:#faf0dd;
+  --green:#2f7d3a; --greenbg:#e4f0e2; --blue:#2c5d8a; --bluebg:#e7eff6; --grey:#8a8073;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;line-height:1.5;font-size:15px;}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px;}
+h1,h2,h3{font-family:'Spectral',serif;font-weight:600;letter-spacing:-0.3px;}
+
+/* HERO */
+.hero{background:var(--ink);color:var(--paper);padding:54px 0 44px;}
+.hero .kick{font-family:'Archivo';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#e0a93f;font-weight:700;margin-bottom:16px;}
+.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.04;color:#fff;max-width:18ch;}
+.hero p{margin-top:14px;color:#b9b9af;max-width:62ch;font-size:15px;}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:#2a2e34;border:1px solid #2a2e34;border-radius:12px;overflow:hidden;margin-top:34px;}
+.kpi{background:var(--ink);padding:18px 20px;}
+.kpi .n{font-family:'Spectral';font-size:30px;font-weight:700;line-height:1;}
+.kpi .n.red{color:#e8786b;} .kpi .n.amber{color:#e0a93f;} .kpi .n.green{color:#7bc488;}
+.kpi .l{font-size:11px;color:#9a9a90;text-transform:uppercase;letter-spacing:1px;margin-top:7px;}
+
+/* SECTION */
+section{padding:46px 0;border-bottom:1px solid var(--line);}
+.eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:10px;}
+h2{font-size:28px;margin-bottom:6px;}
+.intro{color:var(--muted);max-width:70ch;margin-bottom:26px;font-size:15px;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;}
+.tbl th{text-align:right;padding:9px 10px;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);border-bottom:2px solid var(--ink);}
+.tbl th:first-child{text-align:left;}
+.tbl td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--line2);}
+.tbl td:first-child{text-align:left;font-weight:500;}
+.tbl tr:hover td{background:#f5f4ee;}
+.tbl tfoot td{border-top:2px solid var(--ink);border-bottom:none;font-weight:700;background:#f5f4ee;}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700;}
+.p-red{background:var(--redbg);color:var(--red);}
+.p-amber{background:var(--amberbg);color:var(--amber);}
+.p-green{background:var(--greenbg);color:var(--green);}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:8px 14px 4px;}
+
+/* bar cell */
+.barcell{display:flex;align-items:center;gap:8px;justify-content:flex-end;}
+.bartrack{width:70px;height:6px;background:var(--line);border-radius:3px;overflow:hidden;}
+.barfill{height:6px;border-radius:3px;}
+
+/* WEEK STRIP */
+.weeks{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:6px;}
+.wkcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;}
+.wkcard .wk{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.wkcard .hp{font-family:'Spectral';font-size:24px;font-weight:700;color:var(--red);line-height:1.1;margin-top:6px;}
+.wkcard .lp{font-size:13px;color:var(--amber);font-weight:600;}
+@media(max-width:760px){.weeks{grid-template-columns:repeat(2,1fr);}}
+
+/* BUCKET */
+.bucket{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:0 12px 12px 0;padding:22px 24px;margin-bottom:16px;}
+.bucket.b{border-left-color:var(--green);} .bucket.c{border-left-color:var(--amber);}
+.bucket.d{border-left-color:var(--amber);} .bucket.e{border-left-color:var(--grey);}
+.bk-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.bk-head h3{font-size:20px;}
+.bk-head .tag{font-size:13px;color:var(--muted);}
+.bk-nums{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px;}
+.bk-nums div{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;}
+.bk-nums b{display:block;font-family:'Spectral';font-size:22px;font-weight:700;color:var(--ink);}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:680px){.bk-grid{grid-template-columns:1fr;}}
+.bk-cell{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:13px 15px;}
+.bk-cell h4{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700;}
+.bk-cell p{font-size:13.5px;}
+.evi{margin-top:13px;background:var(--redbg);border-radius:9px;padding:11px 15px;font-size:13px;color:#7a2a20;}
+.bucket.b .evi,.bucket.c .evi,.bucket.d .evi{background:var(--amberbg);color:#6b4709;}
+.owner-line{margin-top:13px;font-size:13px;color:var(--muted);}
+.owner-line b{color:var(--ink);}
+
+/* TRAJ */
+.traj{background:var(--ink);color:#fff;border-radius:14px;padding:30px;}
+.traj h3{color:#fff;font-size:22px;margin-bottom:4px;}
+.traj .ts{color:#b9b9af;font-size:13px;margin-bottom:26px;}
+.bars{display:flex;align-items:flex-end;gap:12px;height:180px;}
+.bcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;height:100%;}
+.bbar{width:100%;border-radius:5px 5px 0 0;position:relative;}
+.bbar .v{position:absolute;top:-21px;width:100%;text-align:center;font-family:'Spectral';font-weight:700;font-size:14px;color:#fff;}
+.blab{font-size:10.5px;color:#b9b9af;text-align:center;line-height:1.25;}
+
+footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
+.note{font-size:12px;color:var(--muted);margin-top:10px;font-style:italic;}
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:20px;}
+.chartbox h4{font-family:'Archivo';font-size:13px;font-weight:700;margin-bottom:2px;}
+.chartbox .cs{font-size:12.5px;color:var(--muted);margin-bottom:16px;}
+.chh{position:relative;width:100%;}
+.charts2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:760px){.charts2{grid-template-columns:1fr;}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:10px;}
+.legend span{display:flex;align-items:center;gap:5px;}
+.dot{width:11px;height:3px;border-radius:2px;display:inline-block;}
+.exec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px;}
+@media(max-width:760px){.exec-grid{grid-template-columns:1fr;}}
+.exec-cell{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px 20px;}
+.exec-cell h4{font-family:'Archivo';font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px;}
+.exec-cell p{font-size:14px;}
+.ask{background:var(--ink);color:#fff;border-radius:13px;padding:24px 26px;}
+.ask-title{font-family:'Spectral';font-size:19px;font-weight:600;color:#e0a93f;margin-bottom:16px;}
+.ask-items{display:flex;flex-direction:column;gap:13px;}
+.ask-item{display:flex;gap:14px;align-items:flex-start;font-size:14px;color:#dededa;line-height:1.5;}
+.ask-item b{color:#fff;}
+.ask-item .num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#e0a93f;color:var(--ink);font-family:'Spectral';font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.plan-tbl td:first-child{text-align:center;font-family:'Spectral';font-weight:700;font-size:15px;}
+.status-pill{font-size:10.5px;padding:2px 8px;border-radius:20px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.st-now{background:var(--greenbg);color:var(--green);}
+.st-wk2{background:var(--amberbg);color:var(--amber);}
+.st-wk3{background:var(--bluebg);color:var(--blue);}
+.measure{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px;}
+@media(max-width:680px){.measure{grid-template-columns:1fr;}}
+.mcell{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px 20px;}
+.mcell .mi{font-family:'Spectral';font-size:26px;font-weight:700;color:var(--ink);}
+.mcell h4{font-size:13px;font-weight:700;margin:6px 0 4px;}
+.mcell p{font-size:13px;color:var(--muted);}
+@media print{.hero{background:#fff!important;color:#000!important;}.hero h1,.hero .kpi .n{color:#000!important;}.traj{background:#fff;color:#000;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kick">Customer Experience · Root Cause Analysis</div>
+    <h1>Same-day repeat callers — the full picture</h1>
+    <p>Every inbound call to the High Pain &amp; Low Pain queues in May 2026, analysed day-by-day, issue-by-issue, and traced back to root cause through call-recording audits. Repeat % = (total calls − unique callers) ÷ total calls, measured per day.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="n red">35.9%</div><div class="l">High Pain repeat</div></div>
+      <div class="kpi"><div class="n amber">27.8%</div><div class="l">Low Pain repeat</div></div>
+      <div class="kpi"><div class="n">29.6%</div><div class="l">Combined</div></div>
+      <div class="kpi"><div class="n green">&lt;25%</div><div class="l">Target</div></div>
+      <div class="kpi"><div class="n">98,137</div><div class="l">Total calls</div></div>
+      <div class="kpi"><div class="n">31 days</div><div class="l">May 2026</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXEC SUMMARY -->
+<section style="background:#f5f4ee;">
+  <div class="wrap">
+    <div class="eyebrow">Executive Summary</div>
+    <h2>What we found, and what we're asking for</h2>
+    <div class="exec-grid">
+      <div class="exec-cell">
+        <h4>The situation</h4>
+        <p>29.6% of inbound calls to the High &amp; Low Pain queues are same-day repeats (HP 35.9%, LP 27.8%) against a &lt;25% target. Low Pain is near target; <b>High Pain is the battle.</b></p>
+      </div>
+      <div class="exec-cell">
+        <h4>The core insight</h4>
+        <p>Repeats split into two families: issues never resolved (field/product — agent can't fix on call) and calls that failed (dropped, no voice). <b>The biggest cause, 52%, is field — not the call centre.</b></p>
+      </div>
+      <div class="exec-cell">
+        <h4>The impact</h4>
+        <p>The plan reaches <b>&lt;25% by week 2</b> and <b>&lt;20% by week 4</b>, removing roughly 300 repeat calls a day — capacity that shifts from firefighting to first-call resolution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 1 · Daily Trend</div>
+    <h2>Repeat % by day, queue-wise</h2>
+    <p class="intro">Low Pain hovers near target all month. High Pain is the problem queue — it crosses 40% twice and never drops below 26%. Note the clear deterioration from May 8 onward (a likely trigger event around May 7–8).</p>
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="dot" style="background:#c0392b"></span> High Pain</span>
+        <span><span class="dot" style="background:#c07c11"></span> Low Pain</span>
+        <span><span class="dot" style="background:#2f7d3a;border-top:2px dashed #2f7d3a;height:0;"></span> 25% target</span>
+      </div>
+      <div class="chh" style="height:280px;"><canvas id="dailyChart"></canvas></div>
+    </div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr>
+          <th>Date</th><th>HP total</th><th>HP unique</th><th>HP %</th>
+          <th>LP total</th><th>LP unique</th><th>LP %</th>
+          <th>Total</th><th>Unique</th><th>Comb %</th>
+        </tr></thead>
+        <tbody id="dailyBody"></tbody>
+        <tfoot><tr>
+          <td>Grand Total</td><td>22,043</td><td>14,127</td><td>35.9%</td>
+          <td>76,094</td><td>54,967</td><td>27.8%</td>
+          <td>98,137</td><td>69,094</td><td>29.6%</td>
+        </tr></tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 2 · Weekly Movement</div>
+    <h2>How each week moved</h2>
+    <p class="intro">Week numbers show High Pain (large) and Low Pain (small). Week 4 (May 19–25) was the worst for High Pain at 40.4%.</p>
+    <div class="weeks">
+      <div class="wkcard"><div class="wk">Wk 1 · May 1–4</div><div class="hp">29.6%</div><div class="lp">LP 25.3%</div></div>
+      <div class="wkcard"><div class="wk">Wk 2 · May 5–11</div><div class="hp">36.1%</div><div class="lp">LP 26.7%</div></div>
+      <div class="wkcard"><div class="wk">Wk 3 · May 12–18</div><div class="hp">34.5%</div><div class="lp">LP 30.2%</div></div>
+      <div class="wkcard"><div class="wk">Wk 4 · May 19–25</div><div class="hp">40.4%</div><div class="lp">LP 28.2%</div></div>
+      <div class="wkcard"><div class="wk">Wk 5 · May 26–31</div><div class="hp">33.5%</div><div class="lp">LP 26.9%</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ISSUE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 3 · Issue Breakdown</div>
+    <h2>Which issues drive the repeat calls</h2>
+    <p class="intro">Counting every call that is part of a same-day repeat episode, grouped by issue class. Internet issues alone account for over half of all repeat calls; the "repeat rate" column shows how sticky each issue is.</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr>
+          <th>Issue class</th><th>HP calls</th><th>LP calls</th><th>Total calls</th>
+          <th>Repeat calls</th><th>Repeat rate</th><th>Share of repeats</th>
+        </tr></thead>
+        <tbody id="issueBody"></tbody>
+      </table>
+    </div>
+    <p class="note">Repeat calls = calls from numbers that called 2+ times the same day. Repeat rate = repeat calls ÷ total calls for that issue.</p>
+  </div>
+</section>
+
+<!-- SUB-ISSUE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 4 · Sub-issue Detail</div>
+    <h2>Top sub-issues (disposition codes)</h2>
+    <p class="intro">The specific disposition codes generating the most repeat calls. The five highlighted in red are where 80% of the opportunity sits.</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th>Sub-issue</th><th>Issue class</th><th>Total calls</th><th>Repeat calls</th><th>Repeat rate</th></tr></thead>
+        <tbody id="subBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROOT CAUSE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 5 · Root Cause (from call audits)</div>
+    <h2>Five root causes — what call recordings revealed</h2>
+    <p class="intro">Listening to the top repeat calls grouped them into five distinct root causes. Critically, the largest (Internet/Field) is not a call-centre problem at all — agents handled those calls correctly, but the field had not resolved the issue.</p>
+
+    <div class="bucket">
+      <div class="bk-head"><h3>A · Internet &amp; Field Issues</h3><span class="tag">Internet Supply Down + RDNI (Recharge done, internet not working)</span></div>
+      <div class="bk-nums">
+        <div><b>57,685</b>Total calls</div><div><b>26,125</b>Repeat calls</div><div><b>45.3%</b>Repeat rate</div><div><b>52%</b>Of all repeats</div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-cell"><h4>Root cause</h4><p>Field / dealer does not resolve in time and the customer gets no proactive update — so they call again and again just to check status.</p></div>
+        <div class="bk-cell"><h4>Solution</h4><p>Tighter <b>L2-team coordination</b> to cut dealer turnaround, plus automated <b>SMS on ticket open &amp; close</b> (ID + ETA) so status-check calls stop.</p></div>
+      </div>
+      <div class="evi">📞 Customer Customer A called 3× in one day (from an alternate number). Ticket already open, no partner update. Agent handled it correctly each time — the field had simply not fixed it.</div>
+      <div class="owner-line">Owner: <b>L2 Team + Field Ops + Tech (SMS trigger)</b> &nbsp;·&nbsp; <span style="color:var(--red);font-weight:600;">Callback queue will NOT fix this</span></div>
+    </div>
+
+    <div class="bucket b">
+      <div class="bk-head"><h3>B · Disconnected / No Response</h3><span class="tag">Disconnected by CX + No proper response by CX</span></div>
+      <div class="bk-nums">
+        <div><b>9,613</b>Total calls</div><div><b>7,852</b>Repeat calls</div><div><b>81.7%</b>Repeat rate</div><div><b>16%</b>Of all repeats</div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-cell"><h4>Root cause</h4><p>Call ended before resolution — dropped, voice too low, or customer unreachable. 82% call back the same day, many within 15 minutes.</p></div>
+        <div class="bk-cell"><h4>Solution</h4><p>New <b>Ameyo callback queue</b>: any call with talk-time ≤30 sec is auto-dialled back (~194/day). Handled by 5–6 dedicated agents.</p></div>
+      </div>
+      <div class="evi">⚡ 11,724 callbacks happened within 5 minutes of the previous call — these are dropped/failed calls, not genuine new issues.</div>
+      <div class="charts2" style="margin-top:14px;">
+        <div class="chartbox" style="margin-bottom:0;">
+          <h4>Callback queue sizing — "Disconnected by CX" by talk time</h4>
+          <div class="cs">≤30 sec threshold (green) = ~194 calls/day into the callback queue. 81% of all short disconnects.</div>
+          <div class="chh" style="height:200px;"><canvas id="talkChart"></canvas></div>
+        </div>
+        <div class="chartbox" style="margin-bottom:0;">
+          <h4>How fast do they call back?</h4>
+          <div class="cs">37% re-dial within 15 minutes — before any field action is even possible. A 5-min auto-callback intercepts them.</div>
+          <div class="chh" style="height:200px;"><canvas id="gapChart"></canvas></div>
+        </div>
+      </div>
+      <div class="owner-line">Owner: <b>CC Ops + Ameyo Admin</b> &nbsp;·&nbsp; <span style="color:var(--green);font-weight:600;">Callback queue's primary target — start here</span></div>
+    </div>
+
+    <div class="bucket c">
+      <div class="bk-head"><h3>C · Voice / Call Quality</h3><span class="tag">Voice Issue — background noise, missing opening</span></div>
+      <div class="bk-nums">
+        <div><b>1,671</b>Total calls</div><div><b>1,434</b>Repeat calls</div><div><b>85.8%</b>Repeat rate</div><div><b>3%</b>Of all repeats</div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-cell"><h4>Root cause</h4><p>Poor SIP/voice quality on some channels; occasionally the agent never delivered an opening, so no conversation happened.</p></div>
+        <div class="bk-cell"><h4>Solution</h4><p>Route to the same <b>callback queue</b> + a <b>SIP channel audit</b> to find failing channels + QA on agent opening compliance.</p></div>
+      </div>
+      <div class="evi">🎧 Several calls had heavy background noise with no conversation; one had no agent opening while the customer kept saying "hello".</div>
+      <div class="owner-line">Owner: <b>IT / Infra + QA</b></div>
+    </div>
+
+    <div class="bucket d">
+      <div class="bk-head"><h3>D · Wiom Net — Resolution Gaps</h3><span class="tag">UPI payment, sign-in, plan explanation</span></div>
+      <div class="bk-nums">
+        <div><b>6,050</b>Total calls</div><div><b>4,099</b>Repeat calls</div><div><b>67.8%</b>Repeat rate</div><div><b>8%</b>Of all repeats</div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-cell"><h4>Root cause</h4><p>Genuine agent / knowledge gaps — could not find the root cause of a UPI link failure, or did not explain plan expiry. Highest repeat rate of any service class.</p></div>
+        <div class="bk-cell"><h4>Solution</h4><p><b>Resolution scripts</b> for the top 5 Wiom Net codes (cannot close until final step done) + targeted <b>training</b> with app-team backend access.</p></div>
+      </div>
+      <div class="evi">🛠 Customer Customer B — agent could not identify why the recharge link was not arriving; on the repeat call, plan expiry was poorly explained.</div>
+      <div class="owner-line">Owner: <b>Training + App Team</b></div>
+    </div>
+
+    <div class="bucket e">
+      <div class="bk-head"><h3>E · Wiom Refund Follow-ups</h3><span class="tag">Customer chasing a refund repeatedly</span></div>
+      <div class="bk-nums">
+        <div><b>1,160</b>Total calls</div><div><b>522</b>Repeat calls</div><div><b>45.0%</b>Repeat rate</div><div><b>1%</b>Of all repeats</div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-cell"><h4>Root cause</h4><p>Service unresolved → customer escalates to refund → calls back repeatedly to chase it, getting angrier each time.</p></div>
+        <div class="bk-cell"><h4>Solution</h4><p>A <b>dedicated refund desk / escalation path</b> that owns the case end-to-end so it is resolved in one touch.</p></div>
+      </div>
+      <div class="evi">💢 Customer Customer C called 3× in one day chasing a refund, increasingly frustrated, the call dropping each time during the RDNI discussion.</div>
+      <div class="owner-line">Owner: <b>Dedicated Refund Team</b></div>
+    </div>
+
+    <div class="bucket" style="border-left-color:var(--amber);background:var(--amberbg);">
+      <div class="bk-head"><h3>⚠ Cross-cutting · Measurement gap</h3><span class="tag">Alternate-number calling</span></div>
+      <p style="font-size:14px;color:#6b4709;">Audits found customers calling from alternate numbers — one made 3 calls from a different phone. Because the metric counts by phone number, these show as separate "unique" callers, so the true repeat rate is likely <b>higher</b> than reported. Switch the metric to <b>Customer ID</b> (available in the Ameyo report). Owner: Analytics / MIS.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PATTERNS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 6 · Deep-dive Patterns</div>
+    <h2>Three patterns that change the plan</h2>
+    <p class="intro">Beyond the issue mix, the data shows when repeats spike, whether agents are the cause, and what changes between the first and second call. These shape where to focus — and where not to waste effort.</p>
+
+    <div class="chartbox">
+      <h4>1 · Time of day — mornings resolve, afternoons repeat</h4>
+      <div class="cs">Share of calls in each hour that are part of a same-day repeat. High Pain climbs from ~54% at 8 AM to ~70% by 4 PM. Put your strongest agents on morning High Pain slots.</div>
+      <div class="legend">
+        <span><span class="dot" style="background:#c0392b"></span> High Pain</span>
+        <span><span class="dot" style="background:#c07c11"></span> Low Pain</span>
+      </div>
+      <div class="chh" style="height:240px;"><canvas id="hourChart"></canvas></div>
+    </div>
+
+    <div class="charts2">
+      <div class="chartbox">
+        <h4>2 · Not an agent-skill problem</h4>
+        <div class="cs">All agents cluster in a narrow 61–68% band. If it were a coaching issue you'd see outliers. The problem is structural — agents can't fix a down line on the call. Coaching won't move this.</div>
+        <div class="chh" style="height:230px;"><canvas id="agentChart"></canvas></div>
+      </div>
+      <div class="chartbox">
+        <h4>3 · What changes on the call-back</h4>
+        <div class="cs">First call is often dropped (Incomplete 28%). On the second call the customer gets through, but the issue is now overwhelmingly Internet (60%) — still unresolved by the field.</div>
+        <div class="chh" style="height:230px;"><canvas id="shiftChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAJECTORY -->
+<section style="border-bottom:none;">
+  <div class="wrap">
+    <div class="eyebrow">Section 7 · The Plan</div>
+    <h2>Path to target — June</h2>
+    <p class="intro">Bucket B (callback queue) is fully Operations-controlled and starts immediately. Bucket A (field) is the biggest lever but needs L2 + field + tech together, so it must start now even though it lands later.</p>
+    <div class="traj">
+      <h3>Projected daily repeat rate</h3>
+      <div class="ts">Each phase stacks on the previous. Target line: 25%.</div>
+      <div class="bars">
+        <div class="bcol"><div class="bbar" style="height:88%;background:linear-gradient(180deg,#d4584a,#c0392b);"><span class="v">32.5%</span></div><div class="blab">May<br>baseline</div></div>
+        <div class="bcol"><div class="bbar" style="height:73%;background:linear-gradient(180deg,#d99a32,#c07c11);"><span class="v">27%</span></div><div class="blab">Wk1<br>Callback+wrap</div></div>
+        <div class="bcol"><div class="bbar" style="height:66%;background:linear-gradient(180deg,#d99a32,#c07c11);"><span class="v">25%</span></div><div class="blab">Wk2<br>QA protocol ✓</div></div>
+        <div class="bcol"><div class="bbar" style="height:58%;background:linear-gradient(180deg,#4f9a5c,#2f7d3a);"><span class="v">22%</span></div><div class="blab">Wk3<br>Wiom scripts</div></div>
+        <div class="bcol"><div class="bbar" style="height:46%;background:linear-gradient(180deg,#4f9a5c,#2f7d3a);"><span class="v">&lt;20%</span></div><div class="blab">Wk4<br>Field SMS+L2</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTION PLAN -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Section 8 · Execution</div>
+    <h2>30-day action plan</h2>
+    <p class="intro">Eight actions, each with a single owner and clear dependency. Actions marked "Start now" have no external blocker — Operations can begin immediately.</p>
+    <div class="tblwrap">
+      <table class="tbl plan-tbl">
+        <thead><tr><th>#</th><th>Action</th><th>Bucket</th><th>Owner</th><th>Dependency</th><th>Impact/day</th><th>Timing</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td style="text-align:left">Ameyo callback queue (≤30s talk-time)</td><td>B</td><td style="text-align:left">CC Ops + Ameyo</td><td style="text-align:left">Ameyo config</td><td>−161</td><td><span class="status-pill st-now">Start now</span></td></tr>
+          <tr><td>2</td><td style="text-align:left">Fix wrap.timeout (raise ACW floor + QA flag)</td><td>—</td><td style="text-align:left">QA + TLs</td><td style="text-align:left">Internal</td><td>−66</td><td><span class="status-pill st-now">Start now</span></td></tr>
+          <tr><td>3</td><td style="text-align:left">"No proper response" QA listen-back protocol</td><td>B</td><td style="text-align:left">QA + TLs</td><td style="text-align:left">Internal</td><td>−34</td><td><span class="status-pill st-wk2">Week 2</span></td></tr>
+          <tr><td>4</td><td style="text-align:left">SIP channel audit for Voice Issues</td><td>C</td><td style="text-align:left">IT / Infra</td><td style="text-align:left">Telecom vendor</td><td>−45</td><td><span class="status-pill st-wk2">Week 2</span></td></tr>
+          <tr><td>5</td><td style="text-align:left">Wiom Net resolution scripts (top 5 codes)</td><td>D</td><td style="text-align:left">Training + App</td><td style="text-align:left">App backend</td><td>−40</td><td><span class="status-pill st-wk3">Week 3</span></td></tr>
+          <tr><td>6</td><td style="text-align:left">Recharge-done resolution tree</td><td>A</td><td style="text-align:left">Training + Product</td><td style="text-align:left">Provisioning</td><td>−38</td><td><span class="status-pill st-wk3">Week 3</span></td></tr>
+          <tr><td>7</td><td style="text-align:left">Proactive SMS on ticket open &amp; close</td><td>A</td><td style="text-align:left">Tech + Field + L2</td><td style="text-align:left">Ticketing integration</td><td>−129</td><td><span class="status-pill st-wk3">Week 3–4</span></td></tr>
+          <tr><td>8</td><td style="text-align:left">Dedicated refund desk / escalation</td><td>E</td><td style="text-align:left">Refund team</td><td style="text-align:left">Process setup</td><td>−25</td><td><span class="status-pill st-wk3">Week 3</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Plus a cross-cutting action: switch the repeat metric to Customer ID (Owner: Analytics/MIS) and investigate the May 7–8 trigger event that pushed both queues up sharply.</p>
+  </div>
+</section>
+
+<!-- MEASURE -->
+<section style="border-bottom:none;">
+  <div class="wrap">
+    <div class="eyebrow">Section 9 · How we'll measure success</div>
+    <h2>Governance &amp; tracking</h2>
+    <div class="measure">
+      <div class="mcell"><div class="mi">Daily</div><h4>Repeat-rate dashboard</h4><p>Ops lead reviews the previous day's repeat % every morning, split by queue and by the five buckets.</p></div>
+      <div class="mcell"><div class="mi">&gt;27%</div><h4>Same-day RCA trigger</h4><p>Any day above 27% triggers a same-day root-cause review — we don't wait for the monthly number.</p></div>
+      <div class="mcell"><div class="mi">Weekly</div><h4>Founder review</h4><p>Repeat rate enters the weekly business review with trend vs target and lever-level progress.</p></div>
+    </div>
+  </div>
+</section>
+  <div class="wrap">
+    <b>Repeat Caller RCA — Full Report.</b> Scope: High Pain + Low Pain inbound queues · Same-day repeat calls · May 2026 (Ameyo). Headline repeat % uses (total − unique) ÷ total per day. Issue tables count calls involved in a same-day repeat episode. Use browser Print → Save as PDF to share.
+  </div>
+</footer>
+
+<script>
+const daily = [
+['01/05',618,440,28.8,2637,1921,27.2,3255,2361,27.5],
+['02/05',612,431,29.6,2406,1818,24.4,3018,2249,25.5],
+['03/05',581,404,30.5,2294,1744,24.0,2875,2148,25.3],
+['04/05',530,390,26.4,2284,1721,24.6,2814,2111,25.0],
+['05/05',575,398,30.8,2121,1612,24.0,2696,2010,25.4],
+['06/05',759,495,34.8,2578,1904,26.1,3337,2399,28.1],
+['07/05',796,519,34.8,2360,1761,25.4,3156,2280,27.8],
+['08/05',787,464,41.0,2271,1546,31.9,3058,2010,34.3],
+['09/05',833,467,43.9,2499,1789,28.4,3332,2256,32.3],
+['10/05',706,452,36.0,2338,1719,26.5,3044,2171,28.7],
+['11/05',632,409,35.3,2348,1746,25.6,2980,2155,27.7],
+['12/05',488,336,31.1,2226,1581,29.0,2714,1917,29.4],
+['13/05',673,430,36.1,2338,1601,31.5,3011,2031,32.5],
+['14/05',549,371,32.4,2461,1728,29.8,3010,2099,30.3],
+['15/05',639,438,31.5,2758,1858,32.6,3397,2296,32.4],
+['16/05',666,430,35.4,2630,1815,31.0,3296,2245,31.9],
+['17/05',790,492,37.7,2752,1898,31.0,3542,2390,32.5],
+['18/05',828,480,42.0,2506,1754,30.0,3334,2234,33.0],
+['19/05',879,550,37.4,2614,1873,28.3,3493,2423,30.6],
+['20/05',838,510,39.1,2530,1819,28.1,3368,2329,30.8],
+['21/05',1019,569,44.2,2497,1757,29.6,3516,2326,33.8],
+['22/05',975,569,41.6,2714,1985,26.9,3689,2554,30.8],
+['23/05',836,512,38.8,2611,1904,27.1,3447,2416,29.9],
+['24/05',819,501,38.8,2615,1893,27.6,3434,2394,30.3],
+['25/05',744,487,34.5,2400,1703,29.0,3144,2190,30.3],
+['26/05',712,485,31.9,2747,1960,28.6,3459,2445,29.3],
+['27/05',702,469,33.2,2485,1869,24.8,3187,2338,26.6],
+['28/05',644,415,35.6,2348,1768,24.7,2992,2183,27.0],
+['29/05',657,433,34.1,2293,1694,26.1,2950,2127,27.9],
+['30/05',577,388,32.8,2173,1620,25.4,2750,2008,27.0],
+['31/05',579,393,32.1,2260,1606,28.9,2839,1999,29.6],
+];
+const db=document.getElementById('dailyBody');
+daily.forEach(d=>{
+  const hpC=d[3]>=40?'p-red':d[3]>=35?'p-amber':'';
+  const lpC=d[6]>=30?'p-red':d[6]>=25?'p-amber':'p-green';
+  const cbC=d[9]>=30?'p-red':d[9]>=25?'p-amber':'p-green';
+  db.insertAdjacentHTML('beforeend',`<tr>
+    <td>${d[0]}</td><td>${d[1]}</td><td>${d[2]}</td><td><span class="pill ${hpC}">${d[3]}%</span></td>
+    <td>${d[4]}</td><td>${d[5]}</td><td><span class="pill ${lpC}">${d[6]}%</span></td>
+    <td>${d[7]}</td><td>${d[8]}</td><td><span class="pill ${cbC}">${d[9]}%</span></td></tr>`);
+});
+
+const issues=[
+['Internet Related Issues',12650,45035,57685,26125,45.3,52.4,'var(--red)'],
+['Incomplete Call',3046,8238,11284,9286,82.3,19.3,'var(--red)'],
+['Wiom Net',67,5983,6050,4099,67.8,8.5,'var(--amber)'],
+['System disposition (wrap/transfer)',2090,4697,6787,3427,50.5,7.1,'var(--amber)'],
+['Payment Related Issues',980,4602,5582,2027,36.3,4.2,'var(--grey)'],
+['Others',428,2015,2443,924,37.8,1.9,'var(--grey)'],
+['Remove Connection',1147,1506,2653,883,33.3,1.8,'var(--grey)'],
+['Refund',643,517,1160,522,45.0,1.1,'var(--grey)'],
+['Shifting Request',283,1161,1444,513,35.5,1.1,'var(--grey)'],
+];
+const ib=document.getElementById('issueBody');
+issues.forEach(r=>{
+  ib.insertAdjacentHTML('beforeend',`<tr>
+    <td>${r[0]}</td><td>${r[1].toLocaleString()}</td><td>${r[2].toLocaleString()}</td>
+    <td>${r[3].toLocaleString()}</td><td>${r[4].toLocaleString()}</td>
+    <td><div class="barcell"><div class="bartrack"><div class="barfill" style="width:${r[5]}%;background:${r[7]}"></div></div><b>${r[5]}%</b></div></td>
+    <td>${r[6]}%</td></tr>`);
+});
+
+const subs=[
+['Internet Supply Down','Internet',44231,20045,45.3,1],
+['Disconnected by CX','Incomplete Call',7387,6085,82.4,1],
+['Recharge Done, Internet not Working','Internet',9396,4761,50.7,1],
+['wrap.timeout','System',4471,2576,57.6,0],
+['No proper response by CX','Incomplete Call',2226,1767,79.4,1],
+['Voice Issue','Incomplete Call',1671,1434,85.8,1],
+['Help For Renewal','Payment',3969,1352,34.1,0],
+['Frequent Disconnection','Internet',2948,1005,34.1,0],
+['Service: No internet (Wiom Net)','Wiom Net',1273,946,74.3,0],
+['user.transferred.to.aq','System',2316,851,36.7,0],
+['Service: Asking for payment again','Wiom Net',1037,741,71.5,0],
+['Service: Other (Wiom Net)','Wiom Net',964,666,69.1,0],
+['Wiom Service Issue','Remove Conn.',1841,665,36.1,0],
+['Service Issue (Refund)','Refund',1077,489,45.4,0],
+['Payment Not reflecting (Wiom Net)','Wiom Net',415,322,77.6,0],
+];
+const sb=document.getElementById('subBody');
+subs.forEach(r=>{
+  const c=r[4]>=70?'var(--red)':r[4]>=45?'var(--amber)':'var(--grey)';
+  sb.insertAdjacentHTML('beforeend',`<tr style="${r[5]?'background:#fdf3f1;':''}">
+    <td style="${r[5]?'color:var(--red);font-weight:700;':''}">${r[0]}</td><td style="color:var(--muted)">${r[1]}</td>
+    <td>${r[2].toLocaleString()}</td><td>${r[3].toLocaleString()}</td>
+    <td><div class="barcell"><div class="bartrack"><div class="barfill" style="width:${r[4]}%;background:${c}"></div></div><b>${r[4]}%</b></div></td></tr>`);
+});
+
+// ---------- CHARTS ----------
+const RED='#c0392b', AMBER='#c07c11', GREEN='#2f7d3a', GREY='#b7b1a4', INK='#13161a';
+const grid='rgba(120,120,110,0.12)';
+Chart.defaults.font.family='Archivo, sans-serif';
+Chart.defaults.font.size=11;
+Chart.defaults.color='#6f6f66';
+
+// Daily line
+new Chart(document.getElementById('dailyChart'),{
+  type:'line',
+  data:{labels:daily.map(d=>d[0].replace('/05','')),datasets:[
+    {label:'High Pain',data:daily.map(d=>d[3]),borderColor:RED,backgroundColor:'transparent',tension:0.3,pointRadius:2,borderWidth:2},
+    {label:'Low Pain',data:daily.map(d=>d[6]),borderColor:AMBER,backgroundColor:'transparent',tension:0.3,pointRadius:2,borderWidth:2},
+    {label:'Target',data:daily.map(()=>25),borderColor:GREEN,borderDash:[6,4],borderWidth:1.5,pointRadius:0}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+    scales:{x:{grid:{color:grid},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:16}},y:{min:20,max:48,grid:{color:grid},ticks:{callback:v=>v+'%'}}}}
+});
+
+// Talk time buckets
+new Chart(document.getElementById('talkChart'),{
+  type:'bar',
+  data:{labels:['0-10','11-20','21-30','31-45','46-60','61-90','91-120','120+'],
+    datasets:[{data:[123,49,22,14,6,5,2,3],
+      backgroundColor:['rgba(47,125,58,.8)','rgba(47,125,58,.8)','rgba(47,125,58,.8)','rgba(192,124,17,.55)','rgba(192,124,17,.55)','rgba(140,128,115,.4)','rgba(140,128,115,.4)','rgba(140,128,115,.4)'],
+      borderColor:[GREEN,GREEN,GREEN,AMBER,AMBER,GREY,GREY,GREY],borderWidth:1}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' calls/day (sec)'}}},
+    scales:{x:{grid:{display:false},title:{display:true,text:'Talk time (seconds)'}},y:{grid:{color:grid},title:{display:true,text:'Calls / day'}}}}
+});
+
+// Callback gap
+new Chart(document.getElementById('gapChart'),{
+  type:'bar',
+  data:{labels:['0-5m','5-15m','15-30m','30-60m','1-2h','2-8h','8h+'],
+    datasets:[{data:[11724,4092,2125,2463,3302,7269,915],
+      backgroundColor:['rgba(192,57,43,.85)','rgba(192,57,43,.85)','rgba(192,124,17,.6)','rgba(192,124,17,.6)','rgba(140,128,115,.4)','rgba(140,128,115,.4)','rgba(47,125,58,.5)'],
+      borderColor:[RED,RED,AMBER,AMBER,GREY,GREY,GREEN],borderWidth:1}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+' callbacks'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>v>=1000?(v/1000)+'k':v}}}}
+});
+
+// Hourly
+const hrs=['7a','8a','9a','10a','11a','12p','1p','2p','3p','4p','5p','6p','7p','8p','9p','10p'];
+new Chart(document.getElementById('hourChart'),{
+  type:'line',
+  data:{labels:hrs,datasets:[
+    {label:'High Pain',data:[50,53.8,57.5,57.7,61.3,60.2,64.9,64.8,66.4,70.2,69.1,67.3,66.4,68.3,64,60],borderColor:RED,backgroundColor:'rgba(192,57,43,.06)',fill:true,tension:0.35,pointRadius:2,borderWidth:2},
+    {label:'Low Pain',data:[50,46.7,44.8,47,45.7,45.9,49.3,47.9,49.1,53.1,48.2,47.7,46.6,45,41.9,47.9],borderColor:AMBER,backgroundColor:'transparent',tension:0.35,pointRadius:2,borderWidth:2}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}}},
+    scales:{x:{grid:{color:grid}},y:{min:38,max:75,grid:{color:grid},ticks:{callback:v=>v+'%'}}}}
+});
+
+// Agent
+new Chart(document.getElementById('agentChart'),{
+  type:'bar',
+  data:{labels:['Agent 1','Agent 2','Agent 3','Agent 4','Agent 5','Agent 6','Agent 7','Agent 8','Agent 9','Agent 10'],
+    datasets:[{data:[67.6,65.8,63.9,63.7,62.9,62.4,62.3,62.2,61.5,61.1],backgroundColor:'rgba(140,128,115,.55)',borderColor:GREY,borderWidth:1}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+'% repeat'}}},
+    scales:{x:{min:50,max:75,grid:{color:grid},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}
+});
+
+// Shift call1 vs call2
+new Chart(document.getElementById('shiftChart'),{
+  type:'bar',
+  data:{labels:['Internet','Incomplete','Wiom Net','System','Payment'],
+    datasets:[
+      {label:'1st call',data:[46,28,6.4,6.5,5],backgroundColor:'rgba(192,124,17,.55)',borderColor:AMBER,borderWidth:1},
+      {label:'2nd call',data:[60,12.5,7.7,7.3,4.3],backgroundColor:'rgba(192,57,43,.7)',borderColor:RED,borderWidth:1}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:11,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>v+'%'}}}}
+});
+</script>
+</body>
+</html>
