@@ -159,7 +159,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
       </div>
       <div class="exec-cell">
         <h4>The core insight</h4>
-        <p>Repeats split into two families: issues never resolved (field/product — agent can't fix on call) and calls that failed (dropped, no voice). <b>The biggest cause, 52%, is field — not the call centre.</b></p>
+        <p>Repeats split into two families: issues never resolved (field/product — agent can't fix on call) and calls that failed (dropped, no voice). <b>The biggest cause, 67%, is field — not the call centre.</b></p>
       </div>
       <div class="exec-cell">
         <h4>The impact</h4>
@@ -222,17 +222,17 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
   <div class="wrap">
     <div class="eyebrow">Section 3 · Issue Breakdown</div>
     <h2>Which issues drive the repeat calls</h2>
-    <p class="intro">Counting every call that is part of a same-day repeat episode, grouped by issue class. Internet issues alone account for over half of all repeat calls; the "repeat rate" column shows how sticky each issue is.</p>
+    <p class="intro">Two repeat lenses are shown side by side so the picture is complete:</p><div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px;"><div style="flex:1;min-width:240px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;"><p style="font-size:13px;font-weight:700;margin:0 0 4px;color:var(--red);">Repeat % &mdash; your KPI (official)</p><p style="font-size:13px;color:var(--muted);margin:0;">Counts only the <b>extra</b> calls a customer made. This is the number we report and target (&lt;25%). It matches the headline 29.6%.</p></div><div style="flex:1;min-width:240px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;"><p style="font-size:13px;font-weight:700;margin:0 0 4px;color:#1F3A5F;">Repeat % &mdash; involved</p><p style="font-size:13px;color:var(--muted);margin:0;">Counts <b>all</b> calls from a customer who called more than once that day. Always higher than the KPI &mdash; it shows how hard an issue is to solve (&ldquo;stickiness&rdquo;).</p></div></div>
     <div class="tblwrap">
       <table class="tbl">
         <thead><tr>
-          <th>Issue class</th><th>HP calls</th><th>LP calls</th><th>Total calls</th>
-          <th>Repeat calls</th><th>Repeat rate</th><th>Share of repeats</th>
+          <th>Issue class</th><th>Total calls</th>
+          <th>Repeat % &mdash; your KPI</th><th>Repeat % &mdash; involved</th><th>Share of repeats</th>
         </tr></thead>
         <tbody id="issueBody"></tbody>
       </table>
     </div>
-    <p class="note">Repeat calls = calls from numbers that called 2+ times the same day. Repeat rate = repeat calls ÷ total calls for that issue.</p>
+    <p class="note">Both numbers are correct &mdash; they just count differently. <b>Your KPI</b> = only the extra calls (matches 29.6%, this is the target number). <b>Involved</b> = every call from a customer who called again that day, so it is always higher. One tip: when a dropped call comes back, the second call is usually logged as the real issue (e.g. Internet), not &ldquo;Disconnected&rdquo; &mdash; so disconnections cause more repeats than Bucket B alone shows.</p>
   </div>
 </section>
 
@@ -244,7 +244,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
     <p class="intro">The specific disposition codes generating the most repeat calls. The five highlighted in red are where 80% of the opportunity sits.</p>
     <div class="tblwrap">
       <table class="tbl">
-        <thead><tr><th>Sub-issue</th><th>Issue class</th><th>Total calls</th><th>Repeat calls</th><th>Repeat rate</th></tr></thead>
+        <thead><tr><th>Sub-issue</th><th>Issue class</th><th>Total calls</th><th>Repeat % &mdash; your KPI</th><th>Repeat % &mdash; involved</th></tr></thead>
         <tbody id="subBody"></tbody>
       </table>
     </div>
@@ -261,7 +261,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
     <div class="bucket">
       <div class="bk-head"><h3>A · Internet &amp; Field Issues</h3><span class="tag">Internet Supply Down + RDNI (Recharge done, internet not working)</span></div>
       <div class="bk-nums">
-        <div><b>57,685</b>Total calls</div><div><b>26,125</b>Repeat calls</div><div><b>45.3%</b>Repeat rate</div><div><b>52%</b>Of all repeats</div>
+        <div><b>57,685</b>Total calls</div><div><b>22.7%</b>Repeat % (KPI)</div><div><b>45.3%</b>Repeat % (involved)</div><div><b>67%</b>Of all repeats</div>
       </div>
       <div class="bk-grid">
         <div class="bk-cell"><h4>Root cause</h4><p>Field / dealer does not resolve in time and the customer gets no proactive update — so they call again and again just to check status.</p></div>
@@ -274,13 +274,13 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
     <div class="bucket b">
       <div class="bk-head"><h3>B · Disconnected / No Response</h3><span class="tag">Disconnected by CX + No proper response by CX</span></div>
       <div class="bk-nums">
-        <div><b>9,613</b>Total calls</div><div><b>7,852</b>Repeat calls</div><div><b>81.7%</b>Repeat rate</div><div><b>16%</b>Of all repeats</div>
+        <div><b>9,613</b>Total calls</div><div><b>19.6%</b>Repeat % (KPI)</div><div><b>81.7%</b>Repeat % (involved)</div><div><b>9.7%</b>Of all repeats</div>
       </div>
       <div class="bk-grid">
         <div class="bk-cell"><h4>Root cause</h4><p>Call ended before resolution — dropped, voice too low, or customer unreachable. 82% call back the same day, many within 15 minutes.</p></div>
         <div class="bk-cell"><h4>Solution</h4><p>New <b>Ameyo callback queue</b>: any call with talk-time ≤30 sec is auto-dialled back (~194/day). Handled by 5–6 dedicated agents.</p></div>
       </div>
-      <div class="evi">⚡ 11,724 callbacks happened within 5 minutes of the previous call — these are dropped/failed calls, not genuine new issues.</div>
+      <div class="evi">⚡ 11,724 callbacks happened within 5 minutes of the previous call — these are dropped/failed calls, not genuine new issues.<br><br><b>Note on the 19.6% rate:</b> this looks low because when a disconnected customer calls back, the repeat call is usually tagged with the real issue (Internet), not “Disconnected” again. So disconnections cause more repeats than this number alone shows — the callback queue rationale still holds.</div>
       <div class="charts2" style="margin-top:14px;">
         <div class="chartbox" style="margin-bottom:0;">
           <h4>Callback queue sizing — "Disconnected by CX" by talk time</h4>
@@ -299,7 +299,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
     <div class="bucket c">
       <div class="bk-head"><h3>C · Voice / Call Quality</h3><span class="tag">Voice Issue — background noise, missing opening</span></div>
       <div class="bk-nums">
-        <div><b>1,671</b>Total calls</div><div><b>1,434</b>Repeat calls</div><div><b>85.8%</b>Repeat rate</div><div><b>3%</b>Of all repeats</div>
+        <div><b>1,671</b>Total calls</div><div><b>4.4%</b>Repeat % (KPI)</div><div><b>85.8%</b>Repeat % (involved)</div><div><b>0.4%</b>Of all repeats</div>
       </div>
       <div class="bk-grid">
         <div class="bk-cell"><h4>Root cause</h4><p>Poor SIP/voice quality on some channels; occasionally the agent never delivered an opening, so no conversation happened.</p></div>
@@ -312,7 +312,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
     <div class="bucket d">
       <div class="bk-head"><h3>D · Wiom Net — Resolution Gaps</h3><span class="tag">UPI payment, sign-in, plan explanation</span></div>
       <div class="bk-nums">
-        <div><b>6,050</b>Total calls</div><div><b>4,099</b>Repeat calls</div><div><b>67.8%</b>Repeat rate</div><div><b>8%</b>Of all repeats</div>
+        <div><b>6,050</b>Total calls</div><div><b>37.7%</b>Repeat % (KPI)</div><div><b>67.8%</b>Repeat % (involved)</div><div><b>11.7%</b>Of all repeats</div>
       </div>
       <div class="bk-grid">
         <div class="bk-cell"><h4>Root cause</h4><p>Genuine agent / knowledge gaps — could not find the root cause of a UPI link failure, or did not explain plan expiry. Highest repeat rate of any service class.</p></div>
@@ -325,7 +325,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
     <div class="bucket e">
       <div class="bk-head"><h3>E · Wiom Refund Follow-ups</h3><span class="tag">Customer chasing a refund repeatedly</span></div>
       <div class="bk-nums">
-        <div><b>1,160</b>Total calls</div><div><b>522</b>Repeat calls</div><div><b>45.0%</b>Repeat rate</div><div><b>1%</b>Of all repeats</div>
+        <div><b>1,160</b>Total calls</div><div><b>8.4%</b>Repeat % (KPI)</div><div><b>45.0%</b>Repeat % (involved)</div><div><b>0.5%</b>Of all repeats</div>
       </div>
       <div class="bk-grid">
         <div class="bk-cell"><h4>Root cause</h4><p>Service unresolved → customer escalates to refund → calls back repeatedly to chase it, getting angrier each time.</p></div>
@@ -348,7 +348,7 @@ footer{padding:32px 0 64px;color:var(--muted);font-size:12.5px;}
   <div class="wrap">
     <div class="eyebrow">Section 6 · Deep-dive Patterns</div>
     <h2>Three patterns that change the plan</h2>
-    <p class="intro">Beyond the issue mix, the data shows when repeats spike, whether agents are the cause, and what changes between the first and second call. These shape where to focus — and where not to waste effort.</p>
+    <p class="intro">Beyond the issue mix, the data shows when repeats spike, whether agents are the cause, and what changes between the first and second call. These charts use a “repeat-involvement” view (share of calls from numbers that repeated that day) to reveal patterns — so the percentages are naturally higher than the headline rate; read them for shape, not absolute value.</p>
 
     <div class="chartbox">
       <h4>1 · Time of day — mornings resolve, afternoons repeat</h4>
@@ -483,49 +483,50 @@ daily.forEach(d=>{
 });
 
 const issues=[
-['Internet Related Issues',12650,45035,57685,26125,45.3,52.4,'var(--red)'],
-['Incomplete Call',3046,8238,11284,9286,82.3,19.3,'var(--red)'],
-['Wiom Net',67,5983,6050,4099,67.8,8.5,'var(--amber)'],
-['System disposition (wrap/transfer)',2090,4697,6787,3427,50.5,7.1,'var(--amber)'],
-['Payment Related Issues',980,4602,5582,2027,36.3,4.2,'var(--grey)'],
-['Others',428,2015,2443,924,37.8,1.9,'var(--grey)'],
-['Remove Connection',1147,1506,2653,883,33.3,1.8,'var(--grey)'],
-['Refund',643,517,1160,522,45.0,1.1,'var(--grey)'],
-['Shifting Request',283,1161,1444,513,35.5,1.1,'var(--grey)'],
+['Internet Related Issues',57685,22.7,45.3,67.0,'var(--red)'],
+['Incomplete Call',11284,20.4,82.3,11.8,'var(--amber)'],
+['Wiom Net',6050,37.7,67.8,11.7,'var(--red)'],
+['Payment Related Issues',5582,10.5,36.3,3.0,'var(--grey)'],
+['System disposition (wrap/transfer)',6787,8.5,50.5,3.0,'var(--grey)'],
+['Others',2443,9.3,37.8,1.2,'var(--grey)'],
+['Remove Connection',2653,6.1,33.3,0.8,'var(--grey)'],
+['Shifting Request',1444,11.5,35.5,0.9,'var(--grey)'],
+['Refund',1160,8.4,45.0,0.5,'var(--grey)'],
 ];
 const ib=document.getElementById('issueBody');
 issues.forEach(r=>{
   ib.insertAdjacentHTML('beforeend',`<tr>
-    <td>${r[0]}</td><td>${r[1].toLocaleString()}</td><td>${r[2].toLocaleString()}</td>
-    <td>${r[3].toLocaleString()}</td><td>${r[4].toLocaleString()}</td>
-    <td><div class="barcell"><div class="bartrack"><div class="barfill" style="width:${r[5]}%;background:${r[7]}"></div></div><b>${r[5]}%</b></div></td>
-    <td>${r[6]}%</td></tr>`);
+    <td>${r[0]}</td><td>${r[1].toLocaleString()}</td>
+    <td><div class="barcell"><div class="bartrack"><div class="barfill" style="width:${r[2]}%;background:${r[5]}"></div></div><b>${r[2]}%</b></div></td>
+    <td style="color:var(--muted)">${r[3]}%</td>
+    <td>${r[4]}%</td></tr>`);
 });
 
 const subs=[
-['Internet Supply Down','Internet',44231,20045,45.3,1],
-['Disconnected by CX','Incomplete Call',7387,6085,82.4,1],
-['Recharge Done, Internet not Working','Internet',9396,4761,50.7,1],
-['wrap.timeout','System',4471,2576,57.6,0],
-['No proper response by CX','Incomplete Call',2226,1767,79.4,1],
-['Voice Issue','Incomplete Call',1671,1434,85.8,1],
-['Help For Renewal','Payment',3969,1352,34.1,0],
-['Frequent Disconnection','Internet',2948,1005,34.1,0],
-['Service: No internet (Wiom Net)','Wiom Net',1273,946,74.3,0],
-['user.transferred.to.aq','System',2316,851,36.7,0],
-['Service: Asking for payment again','Wiom Net',1037,741,71.5,0],
-['Service: Other (Wiom Net)','Wiom Net',964,666,69.1,0],
-['Wiom Service Issue','Remove Conn.',1841,665,36.1,0],
-['Service Issue (Refund)','Refund',1077,489,45.4,0],
-['Payment Not reflecting (Wiom Net)','Wiom Net',415,322,77.6,0],
+['Internet Supply Down','Internet',44231,22.0,45.3,1],
+['Recharge Done, Internet not Working','Internet',9396,21.2,50.7,1],
+['Disconnected by CX','Incomplete Call',7387,16.4,82.4,1],
+['Frequent Disconnection','Internet',2948,9.9,34.1,0],
+['Help For Renewal','Payment',3969,7.2,34.1,0],
+['Service: No internet (Wiom Net)','Wiom Net',1273,21.7,74.3,0],
+['user.transferred.to.aq','System',2316,11.6,36.7,0],
+['Service: Asking for payment again','Wiom Net',1037,24.9,71.5,0],
+['wrap.timeout','System',4471,5.1,57.6,0],
+['No proper response by CX','Incomplete Call',2226,7.6,79.4,0],
+['Service: Other (Wiom Net)','Wiom Net',964,15.8,69.1,0],
+['Payment Not reflecting (Wiom Net)','Wiom Net',415,31.8,77.6,1],
+['Voice Issue','Incomplete Call',1671,4.4,85.8,0],
+['Wiom Service Issue','Remove Conn.',1841,5.2,36.1,0],
+['Router Issue and replacement','Others',337,22.3,56.7,0],
 ];
 const sb=document.getElementById('subBody');
 subs.forEach(r=>{
-  const c=r[4]>=70?'var(--red)':r[4]>=45?'var(--amber)':'var(--grey)';
+  const c=r[3]>=20?'var(--red)':r[3]>=10?'var(--amber)':'var(--grey)';
   sb.insertAdjacentHTML('beforeend',`<tr style="${r[5]?'background:#fdf3f1;':''}">
     <td style="${r[5]?'color:var(--red);font-weight:700;':''}">${r[0]}</td><td style="color:var(--muted)">${r[1]}</td>
-    <td>${r[2].toLocaleString()}</td><td>${r[3].toLocaleString()}</td>
-    <td><div class="barcell"><div class="bartrack"><div class="barfill" style="width:${r[4]}%;background:${c}"></div></div><b>${r[4]}%</b></div></td></tr>`);
+    <td>${r[2].toLocaleString()}</td>
+    <td><div class="barcell"><div class="bartrack"><div class="barfill" style="width:${r[3]}%;background:${c}"></div></div><b>${r[3]}%</b></div></td>
+    <td style="color:var(--muted)">${r[4]}%</td></tr>`);
 });
 
 // ---------- CHARTS ----------
